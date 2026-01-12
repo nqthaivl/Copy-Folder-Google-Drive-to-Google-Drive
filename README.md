@@ -1,44 +1,49 @@
 # Copy Folder Google Drive to Google Drive - 1TouchPro
-<a href="https://colab.research.google.com/github/nqthaivl/Copy-Folder-Google-Drive-to-Google-Drive/blob/main/Copy_Folder_Google_Drive_to_Google_Drive.ipynb"><img data-canonical-src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" src="https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667"></a>
-## Giới thiệu
 
-Chào mừng bạn đến với dự án "Copy Folder Google Drive to Google Drive - 1TouchPro". Dự án này giúp bạn sao chép toàn bộ nội dung của một thư mục trên Google Drive sang một thư mục khác trên cùng Google Drive hoặc tài khoản Google Drive khác.
+<a href="https://colab.research.google.com/github/nqthaivl/Copy-Folder-Google-Drive-to-Google-Drive/blob/main/Copy_Folder_Google_Drive_to_Google_Drive.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
+</a>
 
-## Hướng dẫn sử dụng
+## 🌟 Giới thiệu
 
-### 1. Yêu cầu
+Công cụ này giúp bạn sao chép toàn bộ cấu trúc thư mục từ Google Drive này sang Google Drive khác (bao gồm cả Shared Drive) một cách nhanh chóng. Công cụ hỗ trợ xử lý đệ quy thư mục con, kiểm tra trùng lặp file và giới hạn dung lượng sao chép hàng ngày.
 
-- Tài khoản Google.
-- Quyền truy cập vào Google Drive API.
-- Google Colab (hoặc môi trường hỗ trợ IPython Notebook).
+## 🛠 Hướng dẫn sử dụng chi tiết
 
-### 2. Chuẩn bị
+Để công cụ hoạt động chính xác và tránh lỗi, bạn cần thực hiện theo đúng thứ tự các bước sau trên Google Colab:
 
-Để chạy mã nguồn, hãy làm theo các bước sau:
+### Bước 1: Khởi tạo giao diện (Cell Input)
+Tìm đến ô mã nguồn đầu tiên có tiêu đề **#@title Input**, nhấn nút **Play (Run cell)**. Các ô nhập liệu sẽ hiện ra:
 
-1. **Cài đặt Thư viện:**
-   Không cần cài đặt thêm thư viện ngoài những gì có sẵn trong Google Colab.
+* **Your drive:** Dán đường dẫn (link) thư mục **Đích** (nơi sẽ chứa dữ liệu copy đến).
+* **Shared drive:** Dán đường dẫn (link) thư mục **Nguồn** (nơi chứa dữ liệu cần copy đi).
+* **Từ trang / Đến trang:** Để mặc định là `0` nếu muốn copy toàn bộ thư mục.
+* **Dung lượng tối đa (GB):** Mặc định là `700` (Để tránh chạm ngưỡng giới hạn 750GB/ngày của Google).
+* **Bỏ file, folder:** Nhập từ khóa muốn bỏ qua (ví dụ: `.mp4, .zip`), các từ khóa phân tách bằng dấu phẩy.
 
-2. **Nhập thông tin đầu vào:**
+> [!IMPORTANT]
+> **LƯU Ý QUAN TRỌNG:** Sau khi dán link vào các ô nhập liệu, bạn **PHẢI nhấn phím ENTER** ở mỗi ô hoặc click chuột ra vùng trắng bên ngoài. Nếu không nhấn Enter, Google Colab sẽ không ghi nhận dữ liệu và báo lỗi `Missing required parameter "fileId"`.
 
-   - **Drive đích (dest_text):** Nhập liên kết đến thư mục trên Google Drive mà bạn muốn sao chép đến.
-   - **Drive nguồn (source_text):** Nhập liên kết đến thư mục Google Drive mà bạn muốn sao chép từ đó.
-   - **Từ trang (from_page):** Số trang đầu tiên để bắt đầu sao chép. Đặt là 0 nếu không phân trang.
-   - **Đến trang (to_page):** Số trang cuối cùng để dừng sao chép. Đặt là 0 nếu không phân trang.
-   - **Dung lượng tối đa (max_download_size_text):** Dung lượng tối đa (GB) cho phép sao chép. Chương trình sẽ dừng nếu tổng dung lượng vượt quá giá trị này.
-   - **Loại bỏ (exclude_str_text):** Các chuỗi cần loại bỏ khỏi tên file hoặc thư mục trong quá trình sao chép. Nhiều chuỗi có thể được phân cách bằng dấu phẩy.
+### Bước 2: Xác thực và Chạy (Cell Run)
+1.  Tìm đến ô mã nguồn thứ hai có tiêu đề **#@title Run** và nhấn nút **Play**.
+2.  Một cửa sổ xác thực của Google sẽ hiện ra:
+    * Chọn tài khoản Google của bạn.
+    * Nhấn **Allow (Cho phép)** để cấp quyền cho mã nguồn truy cập và sao chép file trong Drive của bạn.
 
-### 3. Chạy Mã Nguồn
+### Bước 3: Theo dõi tiến độ
+Sau khi xác thực thành công, chương trình sẽ hiển thị log chi tiết:
+* Liệt kê danh sách file tìm thấy.
+* Tự động tạo thư mục con nếu chưa có.
+* Hiển thị tên file đang copy, dung lượng và tốc độ (MB/s).
+* Thông báo **Done** kèm tổng dung lượng và thời gian thực hiện khi hoàn tất.
 
-Sau khi nhập tất cả các thông tin cần thiết, chạy đoạn mã sau:
+---
 
-```python
-destDriveLink = dest_text.value
-sourceDriveLink = source_text.value
-fromPage = int(from_page_text.value)
-toPage = int(to_page_text.value)
+## ⚠️ Lưu ý và Giới hạn
 
-downloader = DownloadFromDrive()
-downloader._limit_size = float(max_download_size_text.value)
-downloader.excluded_strings = [ext.strip() for ext in exclude_str_text.value.split(",") if ext.strip()]
-downloader.copy_drive_to_drive(destDriveLink, sourceDriveLink, fromPage, toPage)
+1.  **Giới hạn 750GB:** Google Drive áp dụng hạn ngạch copy tối đa khoảng **750GB/ngày** cho mỗi tài khoản cá nhân. Nếu quá trình dừng lại giữa chừng do hết hạn ngạch, hãy thử lại sau 24 giờ.
+2.  **Quyền truy cập:** Đảm bảo tài khoản chạy Colab có quyền **Người xem (Viewer)** ở folder nguồn và quyền **Người chỉnh sửa (Editor)** ở folder đích.
+3.  **Duy trì kết nối:** Google Colab có thể tự ngắt nếu tab trình duyệt bị đóng hoặc máy tính đi vào chế độ ngủ (Sleep). Với các thư mục hàng trăm GB, hãy thỉnh thoảng kiểm tra tiến độ.
+
+---
+ 
